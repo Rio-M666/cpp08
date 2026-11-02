@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <iterator>
+#include <exception>
 class Span
 {
 private:
@@ -18,13 +19,13 @@ public:
     int longestSpan();
     void addNumber(std::vector<int>::iterator first, std::vector<int>::iterator last);
 
-    class FullExeption : public std::exception
+    class FullException : public std::exception
     {
     public:
         virtual const char *what() const throw();
     };
 
-    class NoSpanExeption : public std::exception
+    class NoSpanException : public std::exception
     {
     public:
         virtual const char *what() const throw();

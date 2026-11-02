@@ -12,19 +12,19 @@ Span::Span(const Span &other) : _N(other._N)
 void Span::addNumber(int n)
 {
     if (_numbers.size() >= _N)
-        throw FullExeption();
+        throw FullException();
     _numbers.push_back(n);
 }
 void Span::addNumber(std::vector<int>::iterator first, std::vector<int>::iterator last)
 {
     if (_numbers.size() + std::distance(first, last) > _N)
-        throw FullExeption();
+        throw FullException();
     _numbers.insert(_numbers.end(), first, last);
 }
 int Span::shortestSpan()
 {
     if (_numbers.size() < 2)
-        throw NoSpanExeption();
+        throw NoSpanException();
     std::vector<int> it = _numbers;
     std::sort(it.begin(), it.end());
 
@@ -39,9 +39,18 @@ int Span::shortestSpan()
 int Span::longestSpan()
 {
     if (_numbers.size() < 2)
-        throw NoSpanExeption();
+        throw NoSpanException();
     int min = *std::min_element(_numbers.begin(), _numbers.end());
     int max = *std::max_element(_numbers.begin(), _numbers.end());
     int result = max - min;
     return (result);
+}
+const char *Span::FullException::what() const throw()
+{
+    return ("Container is full");
+}
+
+const char *Span::NoSpanException::what() const throw()
+{
+    return ("Not enough numbers in container");
 }
