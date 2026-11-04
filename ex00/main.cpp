@@ -21,7 +21,7 @@ int main()
         it = easyfind(v, 999);
         std::cout << *it << std::endl;
     }
-    catch (const notfoundException &e)
+    catch (const std::exception &e)
     {
         std::cout << e.what() << std::endl;
     }

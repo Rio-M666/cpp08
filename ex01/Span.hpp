@@ -4,6 +4,7 @@
 #include <iostream>
 #include <iterator>
 #include <exception>
+#include <vector>
 class Span
 {
 private:
@@ -14,9 +15,11 @@ public:
     Span();
     Span(unsigned int N);
     Span(const Span &other);
+    Span &operator=(const Span &other);
+    ~Span();
     void addNumber(int n);
-    int shortestSpan();
-    int longestSpan();
+    unsigned int shortestSpan();
+    unsigned int longestSpan();
     void addNumber(std::vector<int>::iterator first, std::vector<int>::iterator last);
 
     class FullException : public std::exception
