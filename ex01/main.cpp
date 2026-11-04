@@ -7,10 +7,22 @@ static void checkNoSpan(Span &sp)
     bool shortestThrown = false;
     bool longestThrown = false;
 
-    try { sp.shortestSpan(); }
-    catch (const Span::NoSpanException &) { shortestThrown = true; }
-    try { sp.longestSpan(); }
-    catch (const Span::NoSpanException &) { longestThrown = true; }
+    try
+    {
+        sp.shortestSpan();
+    }
+    catch (const Span::NoSpanException &)
+    {
+        shortestThrown = true;
+    }
+    try
+    {
+        sp.longestSpan();
+    }
+    catch (const Span::NoSpanException &)
+    {
+        longestThrown = true;
+    }
     assert(shortestThrown && longestThrown);
 }
 
@@ -19,8 +31,14 @@ static void testExceptions()
     Span empty(0);
     checkNoSpan(empty);
     bool fullThrown = false;
-    try { empty.addNumber(1); }
-    catch (const Span::FullException &) { fullThrown = true; }
+    try
+    {
+        empty.addNumber(1);
+    }
+    catch (const Span::FullException &)
+    {
+        fullThrown = true;
+    }
     assert(fullThrown);
 
     Span sp(2);
@@ -29,8 +47,14 @@ static void testExceptions()
     sp.addNumber(-5);
     assert(sp.shortestSpan() == 0 && sp.longestSpan() == 0);
     fullThrown = false;
-    try { sp.addNumber(10); }
-    catch (const Span::FullException &) { fullThrown = true; }
+    try
+    {
+        sp.addNumber(10);
+    }
+    catch (const Span::FullException &)
+    {
+        fullThrown = true;
+    }
     assert(fullThrown);
 }
 
@@ -47,8 +71,14 @@ static void testRange()
     sp.addNumber(numbers.begin(), numbers.begin());
 
     bool fullThrown = false;
-    try { sp.addNumber(numbers.begin(), numbers.end()); }
-    catch (const Span::FullException &) { fullThrown = true; }
+    try
+    {
+        sp.addNumber(numbers.begin(), numbers.end());
+    }
+    catch (const Span::FullException &)
+    {
+        fullThrown = true;
+    }
     assert(fullThrown);
     sp.addNumber(9);
     assert(sp.shortestSpan() == 0 && sp.longestSpan() == 20);
@@ -89,12 +119,9 @@ static bool testLimits()
     Span sp(2);
     sp.addNumber(INT_MIN);
     sp.addNumber(INT_MAX);
-    const unsigned int expected = static_cast<unsigned int>(INT_MAX)
-        - static_cast<unsigned int>(INT_MIN);
+    const unsigned int expected = static_cast<unsigned int>(INT_MAX) - static_cast<unsigned int>(INT_MIN);
 
-    if (sp.shortestSpan() < 1 || sp.longestSpan() < 1
-        || static_cast<unsigned int>(sp.shortestSpan()) != expected
-        || static_cast<unsigned int>(sp.longestSpan()) != expected)
+    if (sp.shortestSpan() < 1 || sp.longestSpan() < 1 || static_cast<unsigned int>(sp.shortestSpan()) != expected || static_cast<unsigned int>(sp.longestSpan()) != expected)
     {
         std::cerr << "INT_MIN/INT_MAX span test failed: expected "
                   << expected << std::endl;
