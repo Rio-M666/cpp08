@@ -13,7 +13,7 @@ static void testAdditional()
     MutantStack<int> original;
     std::list<int> reference;
     const int values[] = {5, 3, 5, 737, 0};
-    for (unsigned int i = 0; i < sizeof(values) / sizeof(values[0]); ++i)
+    for (unsigned int i = 0; i < 5; i++)
     {
         original.push(values[i]);
         reference.push_back(values[i]);
@@ -21,9 +21,9 @@ static void testAdditional()
     assert(original.size() == reference.size());
     assert(std::equal(original.begin(), original.end(), reference.begin()));
     MutantStack<int>::iterator it = original.end();
-    --it;
+    it--;
     assert(*it == 0);
-    --it;
+    it--;
     assert(*it == 737);
 
     MutantStack<int> copied(original);
@@ -73,18 +73,17 @@ int main()
     mstack.push(3);
     mstack.push(5);
     mstack.push(737);
-    //[...]
     mstack.push(0);
 
     MutantStack<int>::iterator it = mstack.begin();
     MutantStack<int>::iterator ite = mstack.end();
 
-    ++it;
-    --it;
+    it++;
+    it--;
     while (it != ite)
     {
         std::cout << *it << std::endl;
-        ++it;
+        it++;
     }
     std::stack<int> s(mstack);
     testAdditional();
